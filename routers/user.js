@@ -2,7 +2,7 @@ const User = require('../model/User')
 const router = require('express').Router()
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require('./verifyToken')
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', verifyToken, async(req, res) => {
         if(req.body.password) {
             const salt = await bcrypt.gensalt(10)
             req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -16,8 +16,15 @@ router.put('/:id', async(req, res) => {
           res.send(500).json(err)  
         }
  })
- 
- router.get('/', async(req, res) => {
+ router.delete('/:id', async(req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id)
+        res.status(200).json('user has been deleted')
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+ router.get('/', verifyToken, async(req, res) => {
     //const query = req.query.new
     try {
         const users = await User.find()
