@@ -2,7 +2,7 @@ const User = require('../model/User')
 const router = require('express').Router()
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require('./verifyToken')
 
-router.put('/:id', verifyToken, async(req, res) => {
+router.put('/:id', async(req, res) => {
         if(req.body.password) {
             const salt = await bcrypt.gensalt(10)
             req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -24,7 +24,7 @@ router.put('/:id', verifyToken, async(req, res) => {
         res.status(500).json(err)
     }
 })
- router.get('/', verifyToken, async(req, res) => {
+ router.get('/', verifyTokenAndAdmin,async(req, res) => {
     //const query = req.query.new
     try {
         const users = await User.find()
