@@ -17,10 +17,12 @@ const userRoute = require('./routers/user')
 const authRoute = require('./routers/auth')
 const productRoute = require('./routers/product')
 const orderRoute = require('./routers/order')
+const chartRoute = require('./routers/cart')
 app.use('/api/users', userRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/product', productRoute)
 app.use('/api/order', orderRoute)
+app.use('/api/cart', chartRoute)
 app.listen(3000, () => {
   console.log(`server is listening on Port: ${port}`);
 })
