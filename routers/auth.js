@@ -2,7 +2,7 @@ const router = require('express').Router()
 const User = require('../model/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const authse=require('../validation/uservalidation')
+const {authSchema}=require('../validation/uservalidation')
 
 router.post('/register', async(req, res) => {
     try {
@@ -14,7 +14,7 @@ router.post('/register', async(req, res) => {
             password: hashpassword,
             isAdmin:req.body.isAdmin
          })
-         
+
          const savedUser = await newUser.save()
           res.json(savedUser)
     } catch (err) {
