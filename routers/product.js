@@ -38,7 +38,7 @@ router.get('/:id', async(req, res) => {
     }
 })
 
-router.get('/', async(req, res) => {
+router.get('/', verifyTokenAndAdmin, async(req, res) => {
     const qNew = req.query.new
     const qCategory = req.query.category
     try {

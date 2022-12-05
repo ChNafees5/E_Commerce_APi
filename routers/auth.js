@@ -44,6 +44,11 @@ router.post('/register', async(req, res) => {
                 res.status(500).json(err)
             }
         })
-
+exports.forgetpassword=(req, res)=>{
+const{email}=req.body;
+User.findOne({email}, (err, user)=>{
+    
+})
+}
 
 module.exports = router
